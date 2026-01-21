@@ -1,6 +1,6 @@
 from django.db import models
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from books.models import Book
 
@@ -25,3 +25,13 @@ def book_list(request:HttpRequest) -> HttpResponse:
     }
 
     return render(request, 'book_list.html', context)
+
+def book_details(request:HttpRequest, slug:str) -> HttpResponse:
+    book = get_object_or_404(Book, slug=slug)
+
+    context ={
+        'page_title': book.title,
+        'book': book,
+    }
+
+    return render(request, 'book_details.html', context)
