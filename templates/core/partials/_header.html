@@ -1,0 +1,136 @@
+<style>
+    header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: var(--shadow-md);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    .logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
+    }
+
+    .logo-icon {
+        font-size: 32px;
+    }
+
+    nav {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    nav a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: white;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+        width: 80%;
+    }
+
+    .search-box {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        padding: 8px 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .search-box input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 14px;
+        width: 200px;
+    }
+
+    .search-box input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        nav {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+        }
+    }
+</style>
+
+<header>
+    <div class="container">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">📚</span>
+                <span>BookHub</span>
+            </a>
+
+            <nav>
+                <a href="/">Home</a>
+                <a href="/books/">Books</a>
+                <a href="#">Reviews</a>
+                <a href="#">About</a>
+                <div class="search-box">
+                    <input type="text" placeholder="Search books...">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
