@@ -1,0 +1,296 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        padding: 80px 0;
+        border-radius: 20px;
+        margin-bottom: 60px;
+        text-align: center;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    .hero-content h1 {
+        font-size: 56px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 22px;
+        color: var(--text-light);
+        margin-bottom: 40px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero-buttons .btn {
+        padding: 16px 40px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 15px;
+    }
+
+    .section-title p {
+        font-size: 18px;
+        color: var(--text-light);
+    }
+
+    .latest-section {
+        margin-bottom: 80px;
+    }
+
+    .books-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .book-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: all 0.4s ease;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .book-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .book-image {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .book-content {
+        padding: 25px;
+    }
+
+    .book-genre {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .book-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+    }
+
+    .book-author {
+        font-size: 16px;
+        color: var(--text-light);
+        margin-bottom: 15px;
+    }
+
+    .book-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .book-rating {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .book-date {
+        font-size: 14px;
+        color: var(--text-light);
+    }
+
+    .reviews-list {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .review-card {
+        background: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.3s ease;
+    }
+
+    .review-card:hover {
+        transform: translateX(5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .review-author {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .review-rating {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .review-book {
+        font-size: 16px;
+        color: var(--text-light);
+        margin-bottom: 12px;
+    }
+
+    .review-text {
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--text-light);
+        margin-bottom: 12px;
+    }
+
+    .review-date {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+
+    .view-all-btn {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 36px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-buttons .btn {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+        }
+
+        .books-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to BookHub</h1>
+        <p>Discover, explore, and review thousands of books from every genre. Your next great read is just a click away!</p>
+        <div class="hero-buttons">
+            <a href="/books/" class="btn">Browse All Books</a>
+            <a href="#" class="btn btn-secondary">Join Our Community</a>
+        </div>
+    </div>
+</div>
+
+<div class="latest-section">
+    <div class="section-title">
+        <h2>Latest Books</h2>
+        <p>Recently added to our collection</p>
+    </div>
+
+    <div class="books-grid">
+        {% for book in latest_books %}
+        <div class="book-card">
+            <img src="{{ book.image_url }}" alt="{{ book.title }}" class="book-image">
+            <div class="book-content">
+                <span class="book-genre">{{ book.genre }}</span>
+                <h3 class="book-title">{{ book.title|upper }}</h3>
+                <p class="book-author">by {{ book.author }}</p>
+                <div class="book-meta">
+                    <span class="book-rating">Avg Rating: {{ book.average_rating|floatformat }}</span>
+                    <span class="book-date">Published: {{ book.publishing_date }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="view-all-btn">
+        <a href="/books/" class="btn">View All Books</a>
+    </div>
+</div>
+
+<div class="latest-section">
+    <div class="section-title">
+        <h2>Latest Reviews</h2>
+        <p>See what our community is saying</p>
+    </div>
+
+    <div class="reviews-list">
+        {% for review in latest_reviews %}
+        <div class="review-card">
+            <div class="review-header">
+                <span class="review-author">{{ review.author }}</span>
+                <span class="review-rating">{{ review.rating }}</span>
+            </div>
+            <p class="review-book">Book: {{ review.book.title|upper }}</p>
+            <p class="review-text">{{ review.body }}</p>
+            <span class="review-date">Posted: {{ review.created_at|date:"d M, Y" }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
