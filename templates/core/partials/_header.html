@@ -123,13 +123,10 @@
             </a>
 
             <nav>
-                <a href="/">Home</a>
-                <a href="/books/">Books</a>
-                <a href="#">Reviews</a>
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'books:book_list' %}">Books</a>
+                <a href="{% url 'reviews:list' %}">Reviews</a>
                 <a href="#">About</a>
-                <div class="search-box">
-                    <input type="text" placeholder="Search books...">
-                </div>
             </nav>
         </div>
     </div>
