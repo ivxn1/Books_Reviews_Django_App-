@@ -262,7 +262,7 @@
             <span class="book-badge {{ book.genre|lower }}">{{ book.genre }}</span>
         </div>
         <div class="book-content">
-            <h2 class="book-title">{{ book.title|upper }}</h2>
+            <h2 class="book-title">{{ book.title }}</h2>
             <p class="book-description">{{ book.description }}</p>
             <div class="book-meta">
                 <div>
@@ -272,7 +272,7 @@
             </div>
             <div class="book-actions">
                 <a href="{% url 'books:book_details' book.slug %}" class="btn">View Details</a>
-                <a href="#" class="btn btn-secondary">Add to Cart</a>
+
             </div>
         </div>
     </div>
