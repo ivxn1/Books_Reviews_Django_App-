@@ -388,7 +388,7 @@
         {% for review in book.reviews.all %}
         <div class="review-card">
             <div class="review-header">
-                <span class="review-author">{{ review.author }}</span>
+                <span class="review-author"><a href="{% url 'reviews:details' review.pk %}">{{ review.author }}</a></span>
                 <div class="review-rating">
                     <span class="rating-number">{{ review.rating }}</span>
                 </div>
