@@ -336,7 +336,7 @@
     <div class="review-card">
         <div class="review-header">
             <div class="reviewer-info">
-                <div class="reviewer-name">{{ review.author }}</div>
+                <div class="reviewer-name"><a href="{% url 'reviews:details' review.pk %}">{{ review.author }}</a></div>
                 <div class="review-date">{{ review.created_at }}</div>
             </div>
             <div class="review-rating">

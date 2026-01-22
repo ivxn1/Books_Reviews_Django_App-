@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from reviews.models import Review
 
+app_name = 'reviews'
 
 # Create your views here.
 def reviews_list(request: HttpRequest) -> HttpResponse:
@@ -20,3 +21,12 @@ def reviews_list(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'reviews_list.html', context)
 
+def review_details(request: HttpRequest, review_id: int) -> HttpResponse:
+    review = get_object_or_404(Review, id=review_id)
+
+    context = {
+        'page_title': f'Review by {review.author}',
+        'review': review,
+    }
+
+    return render(request, 'review_details.html', context)

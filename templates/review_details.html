@@ -1,0 +1,392 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .breadcrumb {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        color: var(--text-light);
+        align-items: center;
+    }
+
+    .breadcrumb a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: var(--primary-dark);
+    }
+
+    .breadcrumb-separator {
+        color: var(--text-light);
+    }
+
+    .review-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--shadow-xl);
+        padding: 50px;
+        margin-bottom: 40px;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .reviewer-info {
+        flex: 1;
+    }
+
+    .reviewer-avatar {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        color: white;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .reviewer-name {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+
+    .review-meta {
+        font-size: 14px;
+        color: var(--text-light);
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .review-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .rating-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px 30px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        min-width: 120px;
+    }
+
+    .rating-value {
+        font-size: 48px;
+        font-weight: 800;
+        display: block;
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+
+    .rating-label {
+        font-size: 14px;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .book-reference {
+        background: var(--bg-light);
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        border-left: 4px solid var(--primary-color);
+    }
+
+    .book-reference-header {
+        font-size: 14px;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .book-reference-content {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .book-reference-image {
+        width: 100px;
+        height: 140px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: var(--shadow-md);
+    }
+
+    .book-reference-info {
+        flex: 1;
+    }
+
+    .book-reference-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+    }
+
+    .book-reference-title a {
+        color: var(--text-dark);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .book-reference-title a:hover {
+        color: var(--primary-color);
+    }
+
+    .book-reference-author {
+        font-size: 16px;
+        color: var(--text-light);
+        margin-bottom: 10px;
+    }
+
+    .book-reference-meta {
+        display: flex;
+        gap: 15px;
+        font-size: 14px;
+        color: var(--text-light);
+    }
+
+    .review-content {
+        margin-bottom: 30px;
+    }
+
+    .review-content h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 20px;
+    }
+
+    .review-text {
+        font-size: 18px;
+        line-height: 1.8;
+        color: var(--text-light);
+        white-space: pre-wrap;
+    }
+
+    .review-actions {
+        display: flex;
+        gap: 15px;
+        padding-top: 30px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .action-btn {
+        padding: 12px 24px;
+        background: var(--bg-light);
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-dark);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .action-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .related-reviews-section {
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--shadow-xl);
+        padding: 50px;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    .section-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .related-reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .related-review-card {
+        background: var(--bg-light);
+        padding: 25px;
+        border-radius: 12px;
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: block;
+    }
+
+    .related-review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .related-review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .related-reviewer-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .related-rating {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .related-review-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-light);
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .related-review-date {
+        font-size: 12px;
+        color: var(--text-light);
+    }
+
+    @media (max-width: 968px) {
+        .review-container {
+            padding: 30px 20px;
+        }
+
+        .related-reviews-section {
+            padding: 30px 20px;
+        }
+
+        .review-header {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .rating-box {
+            align-self: flex-start;
+        }
+
+        .book-reference-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .related-reviews-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .review-actions {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb-separator">›</span>
+    <a href="/reviews/">Reviews</a>
+    <span class="breadcrumb-separator">›</span>
+    <span>Review Details</span>
+</div>
+
+<div class="review-container">
+    <div class="review-header">
+        <div class="reviewer-info">
+            <div class="reviewer-avatar">{{ review.author.0 }}</div>
+            <div class="reviewer-name">{{ review.author }}</div>
+            <div class="review-meta">
+                <span class="review-meta-item">
+                    <span>📅</span>
+                    <span>{{ review.created_at }}</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="rating-box">
+            <span class="rating-value">{{ review.rating|floatformat }}</span>
+            <span class="rating-label">Rating</span>
+        </div>
+    </div>
+
+    <div class="book-reference">
+        <div class="book-reference-header">Review For</div>
+        <div class="book-reference-content">
+            <img src="{{ review.book.image_url }}" alt="{{ review.book.title|upper }}" class="book-reference-image">
+            <div class="book-reference-info">
+                <div class="book-reference-title">
+                    <a href="{% url 'books:book_details' review.book.slug %}">{{ review.book.title|upper }}</a>
+                </div>
+                <div class="book-reference-author">by {{ review.book.author }}</div>
+                <div class="book-reference-meta">
+                    <span>{{ review.book.genre }}</span>
+                    <span>•</span>
+                    <span>${{ review.book.price }}</span>
+                    <span>•</span>
+                    <span>{{ review.book.publishing_date }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="review-content">
+        <h2>Review</h2>
+        <p class="review-text">{{ review.body }}</p>
+    </div>
+
+    <div class="review-actions">
+        <a href="/reviews/" class="action-btn">
+            <span>←</span>
+            <span>Back to Reviews</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
