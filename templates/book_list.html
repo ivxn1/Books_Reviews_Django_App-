@@ -263,7 +263,7 @@
         </div>
         <div class="book-content">
             <h2 class="book-title">{{ book.title }}</h2>
-            <p class="book-description">{{ book.description }}</p>
+            <p class="book-description">{{ book.description|truncatewords:20 }}</p>
             <div class="book-meta">
                 <div>
                     <span class="book-price">${{ book.price }}</span>
