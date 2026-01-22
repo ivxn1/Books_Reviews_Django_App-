@@ -1,0 +1,385 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .page-header {
+        text-align: center;
+        margin-bottom: 50px;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .page-header h1 {
+        font-size: 48px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+    }
+
+    .page-header p {
+        font-size: 18px;
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .stats-bar {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--primary-color);
+        display: block;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .filters-section {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        margin-bottom: 40px;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .filters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        align-items: end;
+    }
+
+    .filter-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-dark);
+    }
+
+    .filter-group select,
+    .filter-group input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .review-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: var(--shadow-md);
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.4s ease;
+        animation: fadeIn 1.2s ease-out;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--border-color);
+    }
+
+    .reviewer-info {
+        flex: 1;
+    }
+
+    .reviewer-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 5px;
+    }
+
+    .review-date {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+
+    .review-rating {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 8px 16px;
+        border-radius: 20px;
+        color: white;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .book-info {
+        background: var(--bg-light);
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .book-title-link {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--primary-color);
+        text-decoration: none;
+        display: block;
+        margin-bottom: 5px;
+        transition: color 0.3s ease;
+    }
+
+    .book-title-link:hover {
+        color: var(--primary-dark);
+    }
+
+    .book-author {
+        font-size: 14px;
+        color: var(--text-light);
+    }
+
+    .review-body {
+        font-size: 15px;
+        line-height: 1.8;
+        color: var(--text-light);
+        margin-bottom: 20px;
+        flex: 1;
+    }
+
+    .review-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .review-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .action-btn {
+        background: none;
+        border: none;
+        color: var(--text-light);
+        font-size: 14px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .action-btn:hover {
+        color: var(--primary-color);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .empty-state-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h2 {
+        font-size: 28px;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+    }
+
+    .empty-state p {
+        font-size: 16px;
+        color: var(--text-light);
+        margin-bottom: 30px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 40px;
+    }
+
+    .pagination-btn {
+        padding: 10px 20px;
+        background: white;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .pagination-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .pagination-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    @media (max-width: 768px) {
+        .page-header h1 {
+            font-size: 32px;
+        }
+
+        .reviews-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filters-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-bar {
+            flex-direction: column;
+        }
+
+        .review-header {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .review-rating {
+            align-self: flex-start;
+        }
+    }
+</style>
+
+<div class="page-header">
+    <h1>Book Reviews</h1>
+    <p>Read honest reviews from our community of book lovers</p>
+</div>
+
+<div class="stats-bar">
+    <div class="stat-item">
+        <span class="stat-value">{{ reviews|length }}</span>
+        <span class="stat-label">Total Reviews</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-value">{{ avg_rating|floatformat }}</span>
+        <span class="stat-label">Avg Rating</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-value">{{ total_reviewers }}</span>
+        <span class="stat-label">Reviewers</span>
+    </div>
+</div>
+
+{% if reviews %}
+<div class="reviews-grid">
+    {% for review in reviews %}
+    <div class="review-card">
+        <div class="review-header">
+            <div class="reviewer-info">
+                <div class="reviewer-name">{{ review.author }}</div>
+                <div class="review-date">{{ review.created_at }}</div>
+            </div>
+            <div class="review-rating">
+                <span>{{ review.rating }}</span>
+            </div>
+        </div>
+
+        <div class="book-info">
+            <a href="#" class="book-title-link">{{ review.book.title }}</a>
+            <div class="book-author">by {{ review.book.author }}</div>
+        </div>
+
+        <p class="review-body">{{ review.body }}</p>
+
+        <div class="review-footer">
+            <div class="review-actions">
+                <button class="action-btn">
+                    <span>👍</span> Helpful
+                </button>
+                <button class="action-btn">
+                    <span>💬</span> Reply
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    <button class="pagination-btn" disabled>Previous</button>
+    <a href="#" class="pagination-btn active">1</a>
+    <a href="#" class="pagination-btn">2</a>
+    <a href="#" class="pagination-btn">3</a>
+    <button class="pagination-btn">Next</button>
+</div>
+
+{% else %}
+<div class="empty-state">
+    <div class="empty-state-icon">📝</div>
+    <h2>No Reviews Found</h2>
+    <p>There are no reviews matching your criteria. Try adjusting your filters.</p>
+    <a href="/reviews/" class="btn">View All Reviews</a>
+</div>
+{% endif %}
+
+{% endblock %}
