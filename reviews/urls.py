@@ -3,6 +3,7 @@ from django.urls import path, include
 from reviews import views
 
 app_name = 'reviews'
+from django.urls import path, include
 
 urlpatterns = [
     path('reviews/', include([

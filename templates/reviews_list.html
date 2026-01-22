@@ -345,7 +345,7 @@
         </div>
 
         <div class="book-info">
-            <a href="#" class="book-title-link">{{ review.book.title }}</a>
+            <a href="{% url 'books:book_details' review.book.slug %}" class="book-title-link">{{ review.book.title }}</a>
             <div class="book-author">by {{ review.book.author }}</div>
         </div>
 
