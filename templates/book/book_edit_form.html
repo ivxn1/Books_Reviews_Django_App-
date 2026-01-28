@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .form-page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .form-page-header h2 {
+        font-size: 42px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+    }
+
+    .form-page-header p {
+        font-size: 16px;
+        color: var(--text-light);
+    }
+
+    .breadcrumb {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        color: var(--text-light);
+        align-items: center;
+    }
+
+    .breadcrumb a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: var(--primary-dark);
+    }
+
+    .breadcrumb-separator {
+        color: var(--text-light);
+    }
+</style>
+
+<div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb-separator">›</span>
+    <a href="/books/">Books</a>
+    <span class="breadcrumb-separator">›</span>
+    <a href="{% url 'books:book_details' book.slug %}">{{ book.title }}</a>
+    <span class="breadcrumb-separator">›</span>
+    <span>Edit</span>
+</div>
+
+<div class="form-page-header">
+    <h2>✏️ Edit Book</h2>
+    <p>Update the details for "{{ book.title }}" by {{ book.author }}</p>
+</div>
+
+{% include 'core/partials/visualize_form.html' %}
+{% endblock %}

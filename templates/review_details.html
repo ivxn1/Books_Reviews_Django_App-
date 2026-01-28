@@ -386,6 +386,14 @@
             <span>←</span>
             <span>Back to Reviews</span>
         </a>
+        <a href="{% url 'reviews:edit_review' review.id %}" class="action-btn" style="background: #4CAF50; color: white; border-color: #4CAF50;">
+            <span>✏️</span>
+            <span>Edit Review</span>
+        </a>
+        <a href="{% url 'reviews:delete_review' review.id %}" class="action-btn" style="background: #f44336; color: white; border-color: #f44336;">
+            <span>🗑️</span>
+            <span>Delete Review</span>
+        </a>
     </div>
 </div>
 

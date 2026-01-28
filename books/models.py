@@ -1,16 +1,10 @@
 from django.db import models
+from books.choices import GenreTextChoices
 
 # Create your models here.
 
 class Book(models.Model):
 
-    class GenreTextChoices(models.TextChoices):
-        FANTASY = "Fantasy", "Fantasy"
-        HORROR = "Horror", "Horror"
-        ROMANCE = "Romance", "Romance"
-        THRILLER = "Thriller", "Thriller"
-        SCI_FI = "Sci-Fi", "Sci-Fi"
-        DOCUMENTARY = "Documentary", "Documentary"
 
     title = models.CharField(
         max_length=100,
@@ -68,5 +62,42 @@ class Book(models.Model):
         null=True
     )
 
+    pages = models.PositiveIntegerField(
+        null=True,
+        blank=True
+    )
+
+    available = models.BooleanField(
+        default=True
+    )
+
+    tag = models.ManyToManyField(
+        to='Tag',
+        blank=True,
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.title.lower().replace(" ", "-")
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.title} by {self.author}"
+
+
+class Tag(models.Model):
+    name = models.CharField(
+        max_length=30,
+        unique=True,
+        blank=False,
+        null=False
+    )
+
+    books = models.ManyToManyField(
+        to=Book,
+        related_name='tags',
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.name
