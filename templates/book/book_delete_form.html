@@ -1,0 +1,105 @@
+{% extends 'core/base.html' %}
+
+{% block page_content %}
+<style>
+    .delete-header {
+        background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);
+        padding: 40px;
+        border-radius: 20px 20px 0 0;
+        color: white;
+        text-align: center;
+        margin: -40px -40px 30px -40px;
+    }
+
+    .delete-header h2 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .warning-box {
+        background: #fff5f5;
+        border-left: 4px solid #e53e3e;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+
+    .warning-box h3 {
+        color: #c53030;
+        margin: 0 0 10px 0;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .warning-box p {
+        color: #742a2a;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    .book-info-box {
+        background: #f7fafc;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border: 2px solid #e2e8f0;
+    }
+
+    .book-info-box h4 {
+        margin: 0 0 15px 0;
+        color: #2d3748;
+        font-size: 18px;
+    }
+
+    .book-info-box p {
+        margin: 8px 0;
+        color: #4a5568;
+    }
+
+    .book-info-box strong {
+        color: #2d3748;
+    }
+
+    .delete-form-submit {
+        background: linear-gradient(135deg, #fc5c7d 0%, #c53030 100%) !important;
+    }
+
+    .delete-form-submit:hover {
+        box-shadow: 0 6px 20px rgba(197, 48, 48, 0.6) !important;
+    }
+</style>
+
+<div class="form-container">
+    <div class="delete-header">
+        <h2>⚠️ Confirm Book Deletion</h2>
+    </div>
+
+    <div class="warning-box">
+        <h3>🚨 Warning!</h3>
+        <p>You are about to permanently delete this book. This action <strong>cannot be undone</strong>. All related reviews and data will also be removed.</p>
+    </div>
+
+    <div class="book-info-box">
+        <h4>📚 Book to be deleted:</h4>
+        <p><strong>Title:</strong> {{ book.title }}</p>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Genre:</strong> {{ book.genre }}</p>
+        <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="form-submit-btn delete-form-submit">
+                🗑️ Yes, Delete Book
+            </button>
+            <a href="{% url 'books:book_details' book.slug %}" class="form-cancel-btn">
+                ← Cancel & Keep Book
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

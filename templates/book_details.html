@@ -365,8 +365,8 @@
             </div>
 
             <div class="book-actions-section">
-                <a href="#" class="btn">Add to Cart</a>
-                <a href="#" class="btn btn-secondary">Add to Wishlist</a>
+                <a href="{% url 'books:edit_book' slug=book.slug %}" class="btn">Edit book</a>
+                <a href="{% url 'books:delete_book' slug=book.slug %}" class="btn btn-secondary">Delete book</a>
             </div>
         </div>
     </div>
@@ -375,6 +375,7 @@
 <div class="reviews-section">
     <div class="reviews-header">
         <h2>Customer Reviews</h2>
+        <a href="{% url 'reviews:create_review_by_book' slug=book.slug %}">Make a review</a>
         <div class="reviews-summary">
             <span class="average-rating">{{ average_rating }}</span>
             <div class="rating-details">

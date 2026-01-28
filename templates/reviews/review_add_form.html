@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    .form-page-header {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .form-page-header h2 {
+        font-size: 42px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+    }
+
+    .form-page-header p {
+        font-size: 16px;
+        color: var(--text-light);
+    }
+
+    .breadcrumb {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        color: var(--text-light);
+        align-items: center;
+    }
+
+    .breadcrumb a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .breadcrumb a:hover {
+        color: var(--primary-dark);
+    }
+
+    .breadcrumb-separator {
+        color: var(--text-light);
+    }
+</style>
+
+<div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb-separator">›</span>
+    <a href="/reviews/">Reviews</a>
+    <span class="breadcrumb-separator">›</span>
+    <span>Add Review</span>
+</div>
+
+<div class="form-page-header">
+    <h2>✍️ Add a New Review</h2>
+    <p>Share your thoughts and rating for a book</p>
+</div>
+
+{% include 'core/partials/visualize_form.html' %}
+{% endblock %}
